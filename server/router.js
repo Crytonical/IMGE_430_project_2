@@ -1,6 +1,8 @@
 const controllers = require('./controllers');
 const middleware = require('./middleware');
 
+const apiURL = "https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/";
+
 const router = (app) => {
   app.get('/getDomos', middleware.requiresLogin, controllers.Domo.getDomos);
 
@@ -17,6 +19,8 @@ const router = (app) => {
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
   app.delete('/deleteDomo', middleware.requiresLogin, controllers.Domo.deleteDomo);
+
+  app.get(apiURL + "/champion.json", controllers.Api.testApi);
 };
 
 module.exports = router;
