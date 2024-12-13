@@ -13,7 +13,7 @@ const handleLogin = (e) => {
         helper.handleError('Username or password is empty');
         return false;
     }
-
+    helper.testApi();
     helper.sendPost(e.target.action, {username, pass});
     return false;
 };

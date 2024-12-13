@@ -10,6 +10,23 @@ const handleError = (message) => {
   /* Sends post requests to the server using fetch. Will look for various
      entries in the response JSON object, and will handle them appropriately.
   */
+const apiURL = "https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/";
+  const testApi = async (url, data, handler) => {
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  
+    const result = await response.json();
+
+    console.log(result);
+  };
+  
+  /* Sends post requests to the server using fetch. Will look for various
+     entries in the response JSON object, and will handle them appropriately.
+  */
   const sendPost = async (url, data, handler) => {
     const response = await fetch(url, {
       method: 'POST',
@@ -21,6 +38,8 @@ const handleError = (message) => {
   
     const result = await response.json();
     document.getElementById('domoMessage').classList.add('hidden');
+
+    console.log(result);
   
     if(result.redirect) {
       window.location = result.redirect;
@@ -70,5 +89,6 @@ const handleError = (message) => {
     handleError,
     sendPost,
     sendDelete,
-    hideError
+    hideError,
+    testApi
   }
