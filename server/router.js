@@ -19,8 +19,6 @@ const router = (app) => {
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
   app.delete('/deleteDomo', middleware.requiresLogin, controllers.Domo.deleteDomo);
-
-  app.get(apiURL + "/champion.json", controllers.Api.testApi);
 };
 
 module.exports = router;
