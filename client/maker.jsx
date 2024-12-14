@@ -55,8 +55,7 @@ const TeamsList = (props) => {
         const response = await fetch("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-a826d76f-295f-41b1-9313-687d89640cbb", {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Content-Security-Policy': `connect-src 'self' https://na1.api.riotgames.com`
+                'Content-Type': 'application/json'
             }});
             const data = await response.json();
             setChamps(data.data);
