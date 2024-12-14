@@ -3,6 +3,8 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
+const apiKey = "RGAPI-a826d76f-295f-41b1-9313-687d89640cbb";
+
 const handleTeam = (e, onTeamAdded) => {
     e.preventDefault();
 
@@ -52,7 +54,7 @@ const TeamsList = (props) => {
 
     useEffect(() => {
         const loadChampsFromAPI = async () => {
-        const response = await fetch("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-a826d76f-295f-41b1-9313-687d89640cbb", {
+        const response = await fetch("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + apiKey, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -101,7 +103,7 @@ const ChampList = (props) => {
 
     useEffect(() => {
         const loadChampsFromAPI = async () => {
-        const response = await fetch("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-a826d76f-295f-41b1-9313-687d89640cbb", {
+        const response = await fetch("https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/champion.json?api_key=" + apiKey, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
