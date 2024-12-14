@@ -58,9 +58,9 @@ const TeamsList = (props) => {
                 'Content-Type': 'application/json'
             }});
             const data = await response.json();
-            setChamps(data.data);
+            setTeams(data.data);
         };
-        loadChampsFromAPI();
+        //loadChampsFromAPI();
     }, [props.reloadTeams]);
 
     if(teams.length === 0) {
@@ -110,7 +110,7 @@ const ChampList = (props) => {
             const data = await response.json();
             setChamps(data.data);
         };
-        //loadChampsFromAPI();
+        loadChampsFromAPI();
     }, [props.reloadChamps]);
 
     if(champs.length === 0) {
