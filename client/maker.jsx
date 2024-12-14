@@ -108,6 +108,7 @@ const ChampList = (props) => {
             }});
             const data = await response.json();
             setChamps(data.data);
+            console.log(data);
         };
         loadChampsFromAPI();
     }, [props.reloadChamps]);
@@ -155,9 +156,9 @@ const App = () => {
             <div id="makeTeam">
                 <TeamForm triggerReload={() => setReloadTeams(!reloadTeams)}/>
             </div>
-            <div id="teams">
+            {/* <div id="teams">
                 <TeamsList teams={[]} reloadTeams={reloadTeams} triggerReload={() => setReloadTeams(!reloadTeams)}/>
-            </div>
+            </div> */}
             <div id="champs">
                 <ChampList champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
             </div>
