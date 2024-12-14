@@ -4,9 +4,8 @@ const { Domo } = models;
 
 const makerPage = async (req, res) => res.render('app');
 
-
 const testApi = async (req, res) => {
-    console.log(res.body);
+  console.log(res.body);
 };
 
 // old,  remove shit after
@@ -56,17 +55,17 @@ const deleteDomo = async (req, res) => {
     const query = { owner: req.session.account._id };
     const docs = await Domo.findOneAndDelete(query);
 
-    return res.json({domos: docs});
+    return res.json({ domos: docs });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({error: 'Error deleteing domos!'});
+    return res.status(500).json({ error: 'Error deleteing domos!' });
   }
-}
+};
 
 module.exports = {
   makerPage,
   makeDomo,
   getDomos,
   deleteDomo,
-  testApi
+  testApi,
 };

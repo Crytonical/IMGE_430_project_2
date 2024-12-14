@@ -1,10 +1,8 @@
 const controllers = require('./controllers');
 const middleware = require('./middleware');
 
-const apiURL = "https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/";
-
 const router = (app) => {
-  app.get('/getDomos', middleware.requiresLogin, controllers.Domo.getDomos);
+  app.get('/getTeams', middleware.requiresLogin, controllers.Team.getTeams);
 
   app.get('/login', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
   app.post('/login', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.login);
@@ -13,12 +11,12 @@ const router = (app) => {
 
   app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
 
-  app.get('/maker', middleware.requiresLogin, controllers.Domo.makerPage);
-  app.post('/maker', middleware.requiresLogin, controllers.Domo.makeDomo);
+  app.get('/teamMaker', middleware.requiresLogin, controllers.Team.teamMakerPage);
+  app.post('/teamMaker', middleware.requiresLogin, controllers.Team.makeTeam);
 
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
-  app.delete('/deleteDomo', middleware.requiresLogin, controllers.Domo.deleteDomo);
+  app.delete('/deleteTeam', middleware.requiresLogin, controllers.Team.deleteTeam);
 };
 
 module.exports = router;
