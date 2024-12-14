@@ -105,7 +105,6 @@ const ChampList = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'content-security-policy': 'connect-src \'self\' https://na1.api.riotgames.com/'
             }});
             const data = await response.json();
             setChamps(data.data);
