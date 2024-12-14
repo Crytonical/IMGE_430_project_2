@@ -4,7 +4,7 @@ const { Team } = models;
 
 const teamMakerPage = async (req, res) => 
   {
-    res.setHeader('Content-Security-Policy', `connect-src 'self' https://na1.api.riotgames.com`);
+    res.setHeader('Content-Security-Policy', `connect-src 'self' https://ddragon.leagueoflegends.com`);
     res.render('app');
   }
 
