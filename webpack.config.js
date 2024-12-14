@@ -16,7 +16,7 @@ module.exports = {
             }
         ]
     },
-    mode: 'production',
+    mode: 'production no-cors',
     watchOptions: {
         aggregateTimeout: 200,
     },
