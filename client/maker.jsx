@@ -31,8 +31,10 @@ const handleDeleteTeam = (e, onTeamDeleted) => {
     helper.sendDelete(e.target.action, {}, onTeamDeleted);
     return false;
 };
+
 const TeamsList = (props) => {
     const [teams, setTeams] = useState(props.teams);
+    console.log("TEAMS START");
 
     useEffect(() => {
         const loadTeamsFromMongo = async () => {
@@ -45,7 +47,7 @@ const TeamsList = (props) => {
             const teamsArray = [];
             for (let i in data)
                 teamsArray.push(data[i]);
-            console.log(teamsArray);
+            console.log("Teams" + teamsArray);
             setTeams(teamsArray);
         };
         loadTeamsFromMongo();
@@ -58,6 +60,8 @@ const TeamsList = (props) => {
             </div>
         );
     }
+
+    console.log(" teams"+teams);
 
     const teamNodes = teams.map(team => {
         return (
@@ -235,7 +239,9 @@ const App = () => {
     return (
         <div>
             <div id="makeTeam">
-                <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
+                <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => { 
+                    setReloadChamps(!reloadChamps);
+                    setReloadTeams(!reloadTeams);}}/>
             </div>
             <div id="teams">
                 <TeamsList teams={[]} reloadTeams={reloadTeams} triggerReload={() => setReloadTeams(!reloadTeams)}/>
