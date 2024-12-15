@@ -8,6 +8,12 @@ const testApi = async (req, res) => {
   console.log(res.body);
 };
 
+const getChampionData = async (req, res) => {
+  const response = await fetch("../data/champion.json");
+  const json = await response.json();
+  return res.status(200).json(json);
+}
+
 // old,  remove shit after
 const makeDomo = async (req, res) => {
   if (!req.body.name || !req.body.age || !req.body.archetype) {
@@ -68,4 +74,5 @@ module.exports = {
   getDomos,
   deleteDomo,
   testApi,
+  getChampionData
 };

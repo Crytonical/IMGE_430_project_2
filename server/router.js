@@ -2,6 +2,8 @@ const controllers = require('./controllers');
 const middleware = require('./middleware');
 
 const router = (app) => {
+  app.get('/getChampionData', middleware.requiresLogin, controllers.Api.getChampionData);
+
   app.get('/getTeams', middleware.requiresLogin, controllers.Team.getTeams);
 
   app.get('/login', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
