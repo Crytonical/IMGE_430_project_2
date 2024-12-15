@@ -11,7 +11,6 @@ const testApi = async (req, res) => {
 };
 
 const getChampionData = async (req, res) => {
-  console.log(champData.data);
   return res.status(200).json(champData.data);
 }
 

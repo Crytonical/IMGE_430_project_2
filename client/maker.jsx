@@ -3,21 +3,24 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
-const apiKey = "RGAPI-a826d76f-295f-41b1-9313-687d89640cbb";
-
 const handleTeam = (e, onTeamAdded) => {
     e.preventDefault();
 
     helper.hideError();
 
     const name = e.target.querySelector('#teamName').value;
+    const top = e.target.querySelector('#topChamp').value;
+    const jungle = e.target.querySelector('#jungleChamp').value;
+    const mid = e.target.querySelector('#midChamp').value;
+    const bot = e.target.querySelector('#botChamp').value;
+    const support = e.target.querySelector('#supportChamp').value;
 
     if(!name) {
         helper.handleError('All fields are required');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name}, onTeamAdded);
+    helper.sendPost(e.target.action, {name, top, jungle, mid, bot, support}, onTeamAdded);
     return false;
 };
 
@@ -28,41 +31,24 @@ const handleDeleteTeam = (e, onTeamDeleted) => {
     helper.sendDelete(e.target.action, {}, onTeamDeleted);
     return false;
 };
-
-const TeamForm = (props) => {
-    // Need to purge this and create team making form lol
-    return(
-        <form id="domoForm"
-            onSubmit={(e) => handleTeam(e, props.triggerReload)}
-            name="domoForm"
-            action="/maker"
-            method="POST"
-            className="domoForm"
-        >
-            <label htmlFor="domoName">Name: </label>
-            <input id="domoName" type="test" name="name" placeholder='Domo Name' />
-            <label htmlFor="domoAge">Age: </label>
-            <input id="domoAge" type="number" min="0" name="age" placeholder='Domo Age' />
-            <label htmlFor="domoArchetype">Archetype: </label>
-            <input id="domoArchetype" type="test" name="archetype" placeholder='Domo Archetype' />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
-        </form>
-    );
-};
 const TeamsList = (props) => {
     const [teams, setTeams] = useState(props.teams);
 
     useEffect(() => {
-        const loadChampsFromAPI = async () => {
-        const response = await fetch("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + apiKey, {
+        const loadTeamsFromMongo = async () => {
+        const response = await fetch("/getTeams", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }});
             const data = await response.json();
-            setTeams(data.data);
+            const teamsArray = [];
+            for (let i in data)
+                teamsArray.push(data[i]);
+            console.log(teamsArray);
+            setTeams(teamsArray);
         };
-        //loadChampsFromAPI();
+        loadTeamsFromMongo();
     }, [props.reloadTeams]);
 
     if(teams.length === 0) {
@@ -92,9 +78,102 @@ const TeamsList = (props) => {
     });
 
     return (
-        <div className="champList">
-            {champNodes}
+        <div className="teamList">
+            {teamNodes}
         </div>
+    );
+};
+
+const ChampSelectList = (props) => {
+    const [champs, setChamps] = useState(props.champs);
+
+    useEffect(() => {
+        const loadChampsFromAPI = async () => {
+            const response = await fetch("/getChampionData");
+            const data = await response.json();
+            const champsArray = [];
+            for (let i in data)
+                champsArray.push(data[i]);
+            setChamps(champsArray);
+        };
+        loadChampsFromAPI();
+    }, [props.reloadChamps]);
+
+    if(champs.length === 0) {
+        return (undefined);
+    }
+
+    const champNodes = champs.map(champ => {
+        return (
+            <option value={champ.id} className="champSelectOption">{champ.name.toUpperCase()}</option>
+        );
+    });
+
+    return (
+        <select name="champSelect" class="champSelect">
+            {champNodes}
+        </select>
+    );
+}
+
+const TeamCreationForm = (props) => {
+    let reloadChamps = props.reloadChamps;
+    const [champs, setChamps] = useState(props.champs);
+
+    useEffect(() => {
+        const loadChampsFromAPI = async () => {
+            const response = await fetch("/getChampionData");
+            const data = await response.json();
+            const champsArray = [];
+            for (let i in data)
+                champsArray.push(data[i]);
+            setChamps(champsArray);
+        };
+        loadChampsFromAPI();
+    }, [props.reloadChamps]);
+
+    if(champs.length === 0) {
+        return (undefined);
+    }
+
+    const champNodes = champs.map(champ => {
+        return (
+            <option value={champ.id} className="champSelectOption">{champ.name.toUpperCase()}</option>
+        );
+    });
+
+    return(
+        <form id="teamCreationForm"
+            onSubmit={(e) => handleTeam(e, props.triggerReload)}
+            name="teamCreationForm"
+            action="/makeTeam"
+            method="POST"
+            className="teamCreationForm"
+        >
+            <label htmlFor="teamCreationForm">Team Comp Name: </label>
+            <input id="teamName" type="test" name="name" placeholder='Team Name' />
+            <label htmlFor="champSelect" className='champSelectLabel'>Top:</label>
+            <select name="champSelect" class="champSelect" id='topChamp'> 
+                {champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Jungle: </label>
+            <select name="champSelect" class="champSelect" id='jungleChamp'> 
+                {champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Mid: </label>
+            <select name="champSelect" class="champSelect" id='midChamp'> 
+                {champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Bot: </label>
+            <select name="champSelect" class="champSelect" id='botChamp'> 
+                {champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Support: </label>
+            <select name="champSelect" class="champSelect" id='supportChamp'> 
+                {champNodes}
+            </select>
+            <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
+        </form>
     );
 };
 
@@ -105,12 +184,15 @@ const ChampList = (props) => {
         const loadChampsFromAPI = async () => {
             const response = await fetch("/getChampionData");
             const data = await response.json();
-            console.log(data);
-            console.log(data.data);
-            setChamps(data.data);
+            const champsArray = [];
+            for (let i in data)
+                champsArray.push(data[i]);
+            setChamps(champsArray);
         };
         loadChampsFromAPI();
     }, [props.reloadChamps]);
+
+    
 
     if(champs.length === 0) {
         return (
@@ -124,8 +206,8 @@ const ChampList = (props) => {
         return (
             <div key={champ.id} className="champ">
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-                <h3 className='champName'>Name: {champ.name}</h3>
-                <h3 className='champTitle'>Title: {champ.title}</h3>
+                <h3 className='champName'>Name: {champ.name.toUpperCase()}</h3>
+                <h3 className='champTitle'>Title: {champ.title.toUpperCase()}</h3>
                 <form id="champDeleteForm"
                     onSubmit={(e) => handleDeleteChamp(e, props.triggerReload)}
                     name="champDeleteForm"
@@ -153,14 +235,14 @@ const App = () => {
     return (
         <div>
             <div id="makeTeam">
-                <TeamForm triggerReload={() => setReloadTeams(!reloadTeams)}/>
+                <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
             </div>
-            {/* <div id="teams">
+            <div id="teams">
                 <TeamsList teams={[]} reloadTeams={reloadTeams} triggerReload={() => setReloadTeams(!reloadTeams)}/>
-            </div> */}
-            <div id="champs">
-                <ChampList champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
             </div>
+            {/* <div id="champs">
+                <ChampList champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
+            </div> */}
         </div>
     );
 };

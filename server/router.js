@@ -14,7 +14,7 @@ const router = (app) => {
   app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
 
   app.get('/teamMaker', middleware.requiresLogin, controllers.Team.teamMakerPage);
-  app.post('/teamMaker', middleware.requiresLogin, controllers.Team.makeTeam);
+  app.post('/makeTeam', middleware.requiresLogin, controllers.Team.makeTeam);
 
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 

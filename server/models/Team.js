@@ -11,32 +11,40 @@ const TeamSchema = new mongoose.Schema({
       trim: true,
       set: setName,
     },
-    age: {
-      type: Number,
-      min: 0,
+    top: {
+      type: String,
       required: true,
+      trim: true,
     },
-    owner: {
-      type: mongoose.Schema.ObjectId,
+    jungle: {
+      type: String,
       required: true,
-      ref: 'Account',
+      trim: true,
     },
-    createdDate: {
-      type: Date,
-      default: Date.now,
+    mid: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    // archetype: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    //   set: setArchetype,
-    // },
+    bot: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    support: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   });
 
 TeamSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age
-  //archetype: doc.archetype,
+  top: doc.top,
+  jungle: doc.jungle,
+  mid: doc.mid,
+  bot: doc.bot,
+  support: doc.support
 });
 
 const TeamModel = mongoose.model('Team', TeamSchema);

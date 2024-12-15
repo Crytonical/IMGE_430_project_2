@@ -179,7 +179,7 @@ nav:nth-child(1) {
     font-style: italic;
 }
 
-#domo {
+#champ {
     z-index: 225;
     margin-top: -20px;
     margin-left: 135px;
@@ -190,7 +190,7 @@ nav:nth-child(1) {
     transform: rotate(330deg);
 }
 
-#domos {
+#champs {
     width: 40%;
     min-width: 400px;
     border: 2px solid #55acee;
@@ -199,7 +199,7 @@ nav:nth-child(1) {
     margin-top: 100px;
 }
 
-.domo {
+.champ {
     width: 95%;
     margin: 0 auto;
     margin-top: 2px;
@@ -212,7 +212,7 @@ nav:nth-child(1) {
     overflow: hidden;
 }
 
-.domo:hover {
+.champ:hover {
     transition: border-color 0.2s ease-out;
     border-color: rgba(255,255,255, 0.8);
     transition: background-color 2.6s ease-out;
@@ -229,7 +229,7 @@ img.domoFace {
     float:left;
 }
 
-h3.emptyDomo {
+h3.emptyChamp {
     width: 400px;
     font-size: 1.5em;
     margin: 0 auto;
@@ -237,7 +237,7 @@ h3.emptyDomo {
     margin-top: 18px;
 }
 
-h3.domoName {
+h3.champName {
     float:left;
     width: 200px;
     font-weight: bold;
@@ -245,19 +245,25 @@ h3.domoName {
     font-size: 1.5em;
 }
 
-h3.domoAge {
-    float:right;
-    text-align: left;
-    width: 100px;
-    font-weight: bold;
-    padding-right: 40px;
-    font-size: 1.5em;
-}
-
-.domo:first-child {
+.champ:first-child {
     margin-top: 10px;
 }
 
-.domo:last-child {
+.champ:last-child {
     margin-bottom:10px;
+}
+
+.champSelectLabel
+{
+    margin-left: 20px;
+}
+
+.champSelect
+{
+    width: 200px;
+}
+
+.champSelectOption
+{
+    width: 200px;
 }
