@@ -1,4 +1,4 @@
-const { response } = require('express');
+//const { response } = require('express');
 const models = require('../models');
 const champData = require('./champion.json');
 
@@ -10,9 +10,7 @@ const testApi = async (req, res) => {
   console.log(res.body);
 };
 
-const getChampionData = async (req, res) => {
-  return res.status(200).json(champData.data);
-}
+const getChampionData = async (req, res) => res.status(200).json(champData.data);
 
 // old,  remove shit after
 const makeDomo = async (req, res) => {
@@ -74,5 +72,5 @@ module.exports = {
   getDomos,
   deleteDomo,
   testApi,
-  getChampionData
+  getChampionData,
 };

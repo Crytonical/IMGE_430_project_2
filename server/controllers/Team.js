@@ -2,14 +2,18 @@ const models = require('../models');
 
 const { Team } = models;
 
-const teamMakerPage = async (req, res) => 
-  {
-    res.render('app');
-  }
+const teamMakerPage = async (req, res) => {
+  res.render('app');
+};
 
 const makeTeam = async (req, res) => {
-  if (!req.body.name || !req.body.top || !req.body.jungle || !req.body.mid || !req.body.bot || !req.body.support) {
-    console.log("make team error");
+  if (!req.body.name || 
+    !req.body.top || 
+    !req.body.jungle || 
+    !req.body.mid || 
+    !req.body.bot || 
+    !req.body.support) {
+    console.log('make team error');
     return res.status(400).json({ error: 'All fields are required!' });
   }
 
@@ -38,7 +42,7 @@ const makeTeam = async (req, res) => {
     if (err.code === 11000) {
       return res.status(400).json({ error: 'Team already exists!' });
     }
-    return res.status(500).json({ error: 'An error occured making team!' + err.message });
+    return res.status(500).json({ error: `An error occured making team!${err.message}` });
   }
 };
 

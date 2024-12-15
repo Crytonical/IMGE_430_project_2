@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+
 const saltRounds = 10;
 
 let AccountModel = {};
