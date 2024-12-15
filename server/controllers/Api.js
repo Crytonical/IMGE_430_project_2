@@ -1,4 +1,6 @@
+const { response } = require('express');
 const models = require('../models');
+const champData = require('./champion.json');
 
 const { Domo } = models;
 
@@ -9,9 +11,8 @@ const testApi = async (req, res) => {
 };
 
 const getChampionData = async (req, res) => {
-  const response = await fetch("../data/champion.json");
-  const json = await response.json();
-  return res.status(200).json(json);
+  console.log(champData.data);
+  return res.status(200).json(champData.data);
 }
 
 // old,  remove shit after

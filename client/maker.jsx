@@ -103,14 +103,11 @@ const ChampList = (props) => {
 
     useEffect(() => {
         const loadChampsFromAPI = async () => {
-        const response = await fetch("https://bpb4402-proxy-server-ca817033a3e7.herokuapp.com/https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/champion.json?api_key=" + apiKey, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }});
+            const response = await fetch("/getChampionData");
             const data = await response.json();
-            setChamps(data.data);
             console.log(data);
+            console.log(data.data);
+            setChamps(data.data);
         };
         loadChampsFromAPI();
     }, [props.reloadChamps]);
