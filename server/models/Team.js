@@ -36,6 +36,11 @@ const TeamSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+    ref: 'Account',
+  },
 });
 
 TeamSchema.statics.toAPI = (doc) => ({

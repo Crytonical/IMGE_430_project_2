@@ -6,10 +6,6 @@ const { Domo } = models;
 
 const makerPage = async (req, res) => res.render('app');
 
-const testApi = async (req, res) => {
-  console.log(res.body);
-};
-
 const getChampionData = async (req, res) => res.status(200).json(champData.data);
 
 // old,  remove shit after
@@ -71,6 +67,5 @@ module.exports = {
   makeDomo,
   getDomos,
   deleteDomo,
-  testApi,
   getChampionData,
 };

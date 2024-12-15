@@ -24,6 +24,7 @@ const makeTeam = async (req, res) => {
     mid: req.body.mid,
     bot: req.body.bot,
     support: req.body.support,
+    owner: req.session.account._id
   };
 
   try {
@@ -50,7 +51,6 @@ const getTeams = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
     const docs = await Team.find(query).select('name top jungle mid bot support').lean().exec();
-
     return res.json({ teams: docs });
   } catch (err) {
     console.log(err);

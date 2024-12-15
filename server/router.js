@@ -18,6 +18,8 @@ const router = (app) => {
 
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
+  app.get('/accountPage', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.accountPage);
+
   app.delete('/deleteTeam', middleware.requiresLogin, controllers.Team.deleteTeam);
 };
 

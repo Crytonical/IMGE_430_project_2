@@ -34,21 +34,12 @@ const handleDeleteTeam = (e, onTeamDeleted) => {
 
 const TeamsList = (props) => {
     const [teams, setTeams] = useState(props.teams);
-    console.log("TEAMS START");
 
     useEffect(() => {
         const loadTeamsFromMongo = async () => {
-        const response = await fetch("/getTeams", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }});
+        const response = await fetch("/getTeams");
             const data = await response.json();
-            const teamsArray = [];
-            for (let i in data)
-                teamsArray.push(data[i]);
-            console.log("Teams" + teamsArray);
-            setTeams(teamsArray);
+            setTeams(data.teams);
         };
         loadTeamsFromMongo();
     }, [props.reloadTeams]);
@@ -61,13 +52,18 @@ const TeamsList = (props) => {
         );
     }
 
-    console.log(" teams"+teams);
-
     const teamNodes = teams.map(team => {
         return (
-            <div key={team.id} className="team">
+            <div key={team._id} className="team">
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
                 <h3 className='teamName'>Name: {team.name}</h3>
+                <div className="teamRoles">
+                    <span className="champRole">Top: {team.top}</span>
+                    <span className="champRole">Jungle: {team.jungle}</span>
+                    <span className="champRole">Mid: {team.mid}</span>
+                    <span className="champRole">Bot: {team.bot}</span>
+                    <span className="champRole">Support: {team.support}</span>
+                </div>
                 <form id="teamDeleteForm"
                     onSubmit={(e) => handleDeleteChamp(e, props.triggerReload)}
                     name="teamDeleteForm"
@@ -89,34 +85,29 @@ const TeamsList = (props) => {
 };
 
 const ChampSelectList = (props) => {
-    const [champs, setChamps] = useState(props.champs);
-
-    useEffect(() => {
-        const loadChampsFromAPI = async () => {
-            const response = await fetch("/getChampionData");
-            const data = await response.json();
-            const champsArray = [];
-            for (let i in data)
-                champsArray.push(data[i]);
-            setChamps(champsArray);
-        };
-        loadChampsFromAPI();
-    }, [props.reloadChamps]);
-
-    if(champs.length === 0) {
-        return (undefined);
-    }
-
-    const champNodes = champs.map(champ => {
-        return (
-            <option value={champ.id} className="champSelectOption">{champ.name.toUpperCase()}</option>
-        );
-    });
-
     return (
-        <select name="champSelect" class="champSelect">
-            {champNodes}
-        </select>
+        <div id='champSelectDiv'>
+            <label htmlFor="champSelect" className='champSelectLabel'>Top:</label>
+            <select name="champSelect" class="champSelect" id='topChamp'> 
+                {props.champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Jungle: </label>
+            <select name="champSelect" class="champSelect" id='jungleChamp'> 
+                {props.champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Mid: </label>
+            <select name="champSelect" class="champSelect" id='midChamp'> 
+                {props.champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Bot: </label>
+            <select name="champSelect" class="champSelect" id='botChamp'> 
+                {props.champNodes}
+            </select>
+            <label htmlFor="champSelect" className='champSelectLabel'>Support: </label>
+            <select name="champSelect" class="champSelect" id='supportChamp'> 
+                {props.champNodes}
+            </select>
+        </div>
     );
 }
 
@@ -156,79 +147,9 @@ const TeamCreationForm = (props) => {
         >
             <label htmlFor="teamCreationForm">Team Comp Name: </label>
             <input id="teamName" type="test" name="name" placeholder='Team Name' />
-            <label htmlFor="champSelect" className='champSelectLabel'>Top:</label>
-            <select name="champSelect" class="champSelect" id='topChamp'> 
-                {champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Jungle: </label>
-            <select name="champSelect" class="champSelect" id='jungleChamp'> 
-                {champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Mid: </label>
-            <select name="champSelect" class="champSelect" id='midChamp'> 
-                {champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Bot: </label>
-            <select name="champSelect" class="champSelect" id='botChamp'> 
-                {champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Support: </label>
-            <select name="champSelect" class="champSelect" id='supportChamp'> 
-                {champNodes}
-            </select>
+            <ChampSelectList champNodes={champNodes}/>
             <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
         </form>
-    );
-};
-
-const ChampList = (props) => {
-    const [champs, setChamps] = useState(props.champs);
-
-    useEffect(() => {
-        const loadChampsFromAPI = async () => {
-            const response = await fetch("/getChampionData");
-            const data = await response.json();
-            const champsArray = [];
-            for (let i in data)
-                champsArray.push(data[i]);
-            setChamps(champsArray);
-        };
-        loadChampsFromAPI();
-    }, [props.reloadChamps]);
-
-    
-
-    if(champs.length === 0) {
-        return (
-            <div className="champList">
-                <h3 className="emptyChamp">FAILED</h3>
-            </div>
-        );
-    }
-
-    const champNodes = champs.map(champ => {
-        return (
-            <div key={champ.id} className="champ">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-                <h3 className='champName'>Name: {champ.name.toUpperCase()}</h3>
-                <h3 className='champTitle'>Title: {champ.title.toUpperCase()}</h3>
-                <form id="champDeleteForm"
-                    onSubmit={(e) => handleDeleteChamp(e, props.triggerReload)}
-                    name="champDeleteForm"
-                    action="/deleteChamp"
-                    method="DELETE"
-                    className="champDeleteForm"
-                >
-                    <input className="deleteChampSubmit" type="submit" value="Delete Champ"/>
-                </form>
-            </div>
-        );
-    });
-
-    return (
-        <div className="champList">
-            {champNodes}
-        </div>
     );
 };
 
@@ -246,9 +167,6 @@ const App = () => {
             <div id="teams">
                 <TeamsList teams={[]} reloadTeams={reloadTeams} triggerReload={() => setReloadTeams(!reloadTeams)}/>
             </div>
-            {/* <div id="champs">
-                <ChampList champs={[]} reloadChamps={reloadChamps} triggerReload={() => setReloadChamps(!reloadChamps)}/>
-            </div> */}
         </div>
     );
 };
