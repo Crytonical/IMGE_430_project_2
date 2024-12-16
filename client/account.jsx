@@ -69,14 +69,14 @@ const TeamsList = (props) => {
     const teamNodes = teams.map(team => {
         return (
             <div key={team._id} className="team">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-                <h3 className='teamName'>Name: {team.name}</h3>
+                <h3 className='teamName'>{team.name}</h3>
+                <h3 className='teamRolesTitle'>TEAM COMP ROLES:</h3>
                 <div className="teamRoles">
-                    <span className="champRole">Top: {team.top}</span>
-                    <span className="champRole">Jungle: {team.jungle}</span>
-                    <span className="champRole">Mid: {team.mid}</span>
-                    <span className="champRole">Bot: {team.bot}</span>
-                    <span className="champRole">Support: {team.support}</span>
+                    <span className="champRole">TOP: {team.top}</span>
+                    <span className="champRole">JUNGLE: {team.jungle}</span>
+                    <span className="champRole">MID: {team.mid}</span>
+                    <span className="champRole">BOT: {team.bot}</span>
+                    <span className="champRole">SUPPORT: {team.support}</span>
                 </div>
                 <form id="teamDeleteForm"
                     onSubmit={(e) => handleDeleteTeam(e, props.triggerReload)}
@@ -108,7 +108,7 @@ const PremiumSubscriptionWindow = (props) => {
             className="mainForm"
         >
             <h1 className='premiumTitle'>Get Premium Now!</h1>
-            <p className='premiumBlurb'>Premium offers no ads! Cancel anytime!</p>
+            <p className='premiumBlurb'>Premium offers no ads! Cancel anytime! Hold back the ads from the void and support us!</p>
             <input className="formSubmit" type="submit" value="Get Premium"/>
 
         </form>

@@ -8,6 +8,9 @@ const handleTeam = (e, onTeamAdded) => {
 
     helper.hideError();
 
+    console.log("sending post");
+
+
     const name = e.target.querySelector('#teamName').value;
     const top = e.target.querySelector('#topChamp').value;
     const jungle = e.target.querySelector('#jungleChamp').value;
@@ -20,36 +23,10 @@ const handleTeam = (e, onTeamAdded) => {
         return false;
     }
 
+    console.log("sending post");
     helper.sendPost(e.target.action, {name, top, jungle, mid, bot, support}, onTeamAdded);
     return false;
 };
-
-const ChampSelectList = (props) => {
-    return (
-        <div id='champSelectDiv'>
-            <label htmlFor="champSelect" className='champSelectLabel'>Top:</label>
-            <select name="champSelect" class="champSelect" id='topChamp'> 
-                {props.champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Jungle: </label>
-            <select name="champSelect" class="champSelect" id='jungleChamp'> 
-                {props.champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Mid: </label>
-            <select name="champSelect" class="champSelect" id='midChamp'> 
-                {props.champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Bot: </label>
-            <select name="champSelect" class="champSelect" id='botChamp'> 
-                {props.champNodes}
-            </select>
-            <label htmlFor="champSelect" className='champSelectLabel'>Support: </label>
-            <select name="champSelect" class="champSelect" id='supportChamp'> 
-                {props.champNodes}
-            </select>
-        </div>
-    );
-}
 
 const TeamCreationForm = (props) => {
     const [champs, setChamps] = useState(props.champs);
@@ -84,10 +61,32 @@ const TeamCreationForm = (props) => {
             method="POST"
             className="teamCreationForm"
         >
-            <label htmlFor="teamCreationForm">Team Comp Name: </label>
-            <input id="teamName" type="test" name="name" placeholder='Team Name' />
-            <ChampSelectList champNodes={champNodes}/>
-            <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
+            <label htmlFor="teamCreationForm" className='teamFormLabel'>COMPOSITION NAME: </label>
+            <input id="teamName" type="text" name="name" placeholder='comp name' />
+            <section className='spacer'></section>
+            <div id='champSelectDiv'>
+                <label htmlFor="champSelect" className='champSelectLabel'>Top:</label>
+                <select name="champSelect" class="champSelect" id='topChamp'> 
+                    {champNodes}
+                </select>
+                <label htmlFor="champSelect" className='champSelectLabel'>Jungle: </label>
+                <select name="champSelect" class="champSelect" id='jungleChamp'> 
+                    {champNodes}
+                </select>
+                <label htmlFor="champSelect" className='champSelectLabel'>Mid: </label>
+                <select name="champSelect" class="champSelect" id='midChamp'> 
+                    {champNodes}
+                </select>
+                <label htmlFor="champSelect" className='champSelectLabel'>Bot: </label>
+                <select name="champSelect" class="champSelect" id='botChamp'> 
+                    {champNodes}
+                </select>
+                <label htmlFor="champSelect" className='champSelectLabel'>Support: </label>
+                <select name="champSelect" class="champSelect" id='supportChamp'> 
+                    {champNodes}
+                </select>
+            </div>
+            <input className="saveTeamSubmit" type="submit" value="SAVE COMPOSITION"/>
         </form>
     );
 };
@@ -101,7 +100,7 @@ const TeamCompViewerNavigation = (props) => {
             method="GET"
             className="teamCompViewerNav"
         >
-            <input className="teamCompViewerSubmit" type="submit" value="View Teams"/>
+            <input id="teamCompViewerSubmit" type="submit" value="VIEW ALL CREATED COMPS"/>
         </form>
     );
 }
@@ -126,7 +125,7 @@ const App = () => {
     {
         console.log("prem");
         return (
-            <div>
+            <div id='masterDiv'>
                 <div id='divNav'>
                     <TeamCompViewerNavigation/>
                 </div>
@@ -142,7 +141,7 @@ const App = () => {
     {
         console.log("no prem");
         return (
-            <div>
+            <div id='masterDiv'>
                 <div className='adSpace'>ADS GO HERE | PURCHASE PREMIUM TO REMOVE</div>
                 <div id='divNav'>
                     <TeamCompViewerNavigation/>

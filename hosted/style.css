@@ -111,10 +111,53 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
-.teamCompViewerSubmit
+#masterDiv {
+    width: 100%;
+}
+
+#divNav{
+    width: 100%;
+}
+
+#teamCompViewerNav{
+    width: 100%;
+}
+
+#teamCompViewerSubmit
 {
-    width: 30%;
-    text-align: left;
+    width: 50%;
+    font-size: 2.5rem;
+}
+
+.spacer {
+    width: 100%;
+    height: 25px;
+}
+
+.teamFormLabel{
+    color: gold;
+    padding-left: 10px;
+    text-align: center;
+}
+
+#champSelectDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.champSelectLabel {
+    color: gold;
+    width: 5%;
+    padding-left: 10px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+option, select{
+    color: gold;
 }
 
 .adSpace
@@ -133,28 +176,16 @@ input[type=submit]:hover {
     flex-direction: row;
     gap: 0;
     margin: 0 auto;
+    margin-top: 50px;
+    background-color: rgba(3,30,41,255);
 }
 
-.accountNavlink {
-    padding: 5px;
-    padding-top: 12px;
-    color: white;
-    font-size: 1.3em;
-    margin: 0 auto;
+#accountNav a, #accountNav div{
+    background-color: rgba(3,30,41,255);
 }
 
-.accountNavlink a, .accountNavlink a:link, .accountNavlink a:visited, .accountNavlink a:hover, .accountNavlink a:active {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: #55acee;
-    transition: background-color 0.4s ease;
-}
-
-.accountNavlink a:hover {
-    transition: background-color 0.8s ease;
-    background-color: #66bdff;
+#accountNav a:hover{
+    background-color:  rgba(3,37,47,255);
 }
 
 .mainForm {
@@ -192,7 +223,7 @@ input[type=submit]:hover {
     display: none;
 }
 
-#domoMessage {
+#imgMessage {
     top: 250px;
     width: 250px;
     height: 650px;
@@ -202,7 +233,7 @@ input[type=submit]:hover {
     overflow: hidden;
 }
 
-#domoMessage h3 {
+#imgMessage h3 {
     width: 200px;
     position: absolute;
     top: 0px;
@@ -215,11 +246,51 @@ input[type=submit]:hover {
     z-index:300;
 }
 
+#errorMsgh3 {
+    background-color: white;
+}
+
 #errorMessage {
     font-size: 1.2em;
     font-weight: bold;
     color: red;
     font-style: italic;
+    background-color: white;
+}
+
+.team {
+    background-color:  rgba(3,37,47,255);
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.teamName {
+    padding-top: 10px;
+    color: gold;
+    background-color:  rgba(3,37,47,255);
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.teamRolesTitle {
+    background-color:  rgba(3,37,47,255);
+    text-align: center;
+    color: gold;
+}
+
+.teamRoles {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: gold;
+    background-color:  rgba(3,37,47,255);
+}
+
+.champRole {
+    width: 20%;
+    background-color:  rgba(3,37,47,255);
+    font-size: 2rem;
 }
 
 #champ {
@@ -262,16 +333,6 @@ input[type=submit]:hover {
     background-color: #66bfff;
 }
 
-img.domoFace {
-    margin-left: 25px;
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
-    border-radius: 4px;
-    margin-top:10px;
-    float:left;
-}
-
 h3.emptyChamp {
     width: 400px;
     font-size: 1.5em;
@@ -296,11 +357,6 @@ h3.champName {
     margin-bottom:10px;
 }
 
-.champSelectLabel
-{
-    margin-left: 20px;
-}
-
 .champSelect
 {
     width: 200px;
@@ -309,4 +365,38 @@ h3.champName {
 .champSelectOption
 {
     width: 200px;
+}
+
+#premiumSubscriptionWindow {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+}
+
+.premiumTitle {
+    color: gold;
+}
+
+.premiumBlurb {
+    color: gold;
+}
+
+#changePasswordForm {
+    margin-top: 25px;
+    color: gold;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#changePasswordForm label{
+    width: 100%;
+    float: left;
+    text-align: left;
+    padding-top: 10px;
+}
+
+#changePasswordForm input{
+    width: 50%;
 }

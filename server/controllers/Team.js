@@ -66,7 +66,7 @@ const deleteTeam = async (req, res) => {
     return res.json({ teams: docs });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Error deleteing domos!' });
+    return res.status(500).json({ error: 'Error deleteing teams!' });
   }
 };
 

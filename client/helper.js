@@ -1,6 +1,6 @@
 const handleError = (message) => {
     document.getElementById('errorMessage').textContent = message;
-    document.getElementById('domoMessage').classList.remove('hidden');
+    document.getElementById('imgMessage').classList.remove('hidden');
   };
 
 const sendPut = async (url, data, handler) => {
@@ -13,7 +13,7 @@ const sendPut = async (url, data, handler) => {
   });
 
   const result = await response.json();
-  document.getElementById('domoMessage').classList.add('hidden');
+  document.getElementById('imgMessage').classList.add('hidden');
 
   if(result.redirect) {
     window.location = result.redirect;
@@ -39,7 +39,7 @@ const sendPost = async (url, data, handler) => {
   });
 
   const result = await response.json();
-  document.getElementById('domoMessage').classList.add('hidden');
+  document.getElementById('imgMessage').classList.add('hidden');
 
   if(result.redirect) {
     window.location = result.redirect;
@@ -64,7 +64,7 @@ const sendDelete = async (url, data, handler) => {
   });
 
   const result = await response.json();
-  document.getElementById('domoMessage').classList.add('hidden');
+  document.getElementById('imgMessage').classList.add('hidden');
 
   if(result.redirect) {
     window.location = result.redirect;
@@ -80,7 +80,7 @@ const sendDelete = async (url, data, handler) => {
 };
 
 const hideError = () => {
-  document.getElementById('domoMessage').classList.add('hidden');
+  document.getElementById('imgMessage').classList.add('hidden');
 };
 
 module.exports = {
