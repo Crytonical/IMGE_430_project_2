@@ -143,7 +143,7 @@ const App = () => {
         console.log("no prem");
         return (
             <div>
-                <div className='adSpace'>adadadadadadada</div>
+                <div className='adSpace'>ADS GO HERE | PURCHASE PREMIUM TO REMOVE</div>
                 <div id='divNav'>
                     <TeamCompViewerNavigation/>
                 </div>
@@ -152,7 +152,7 @@ const App = () => {
                         setReloadChamps(!reloadChamps);
                         setReloadTeams(!reloadTeams);}}/>
                 </div>
-                <div className='adSpace'>adadadadadada</div>
+                <div className='adSpace'>ADS GO HERE | PURCHASE PREMIUM TO REMOVE</div>
             </div>
         );
     }
