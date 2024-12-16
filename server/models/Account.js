@@ -21,10 +21,15 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  premium: {
+    type: Boolean,
+    required: true,
+  }
 });
 
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
+  premium: doc.premium,
   _id: doc._id,
 });
 
@@ -46,6 +51,20 @@ AccountSchema.statics.authenticate = async (username, password, callback) => {
     return callback(err);
   }
 };
+
+AccountSchema.statics.updatePremium = async (username, newPremiumStatus, callback) => {
+  try {
+    const doc = await AccountModel.findOne({ username }).exec();
+    doc.premium = newPremiumStatus;
+    doc.save();
+    if (!doc) {
+      return callback();
+    }
+    return callback(null, doc);
+  } catch (err) {
+    return callback(err);
+  }
+}
 
 AccountModel = mongoose.model('Account', AccountSchema);
 module.exports = AccountModel;

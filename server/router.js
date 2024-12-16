@@ -19,6 +19,10 @@ const router = (app) => {
   app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
   app.get('/accountPage', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.accountPage);
+  app.get('/checkPremium', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.checkPremium);
+  app.put('/getPremium', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.getPremium);
+  app.put('/cancelPremium', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.cancelPremium);
+  app.put('/changePassword', middleware.requiresSecure, middleware.requiresLogin, controllers.Account.changePassword);
 
   app.delete('/deleteTeam', middleware.requiresLogin, controllers.Team.deleteTeam);
 };

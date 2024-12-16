@@ -27,10 +27,10 @@ nav:nth-child(1) {
 .navlink {
     padding: 5px;
     padding-top: 12px;
-    padding-left: 20px;
     color: white;
     font-size: 1.3em;
-    float: left;
+    float: right;
+    margin-right: 30px;
 }
 
 .navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
@@ -43,6 +43,36 @@ nav:nth-child(1) {
 }
 
 .navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color: #66bdff;
+}
+
+#accountNav {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin: 0 auto;
+}
+
+.accountNavlink {
+    padding: 5px;
+    padding-top: 12px;
+    color: white;
+    font-size: 1.3em;
+    margin: 0 auto;
+}
+
+.accountNavlink a, .accountNavlink a:link, .accountNavlink a:visited, .accountNavlink a:hover, .accountNavlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #55acee;
+    transition: background-color 0.4s ease;
+}
+
+.accountNavlink a:hover {
     transition: background-color 0.8s ease;
     background-color: #66bdff;
 }

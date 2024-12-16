@@ -24,66 +24,6 @@ const handleTeam = (e, onTeamAdded) => {
     return false;
 };
 
-const handleDeleteTeam = (e, onTeamDeleted) => {
-    e.preventDefault();
-    helper.hideError();
-
-    helper.sendDelete(e.target.action, {}, onTeamDeleted);
-    return false;
-};
-
-const TeamsList = (props) => {
-    const [teams, setTeams] = useState(props.teams);
-
-    useEffect(() => {
-        const loadTeamsFromMongo = async () => {
-        const response = await fetch("/getTeams");
-            const data = await response.json();
-            setTeams(data.teams);
-        };
-        loadTeamsFromMongo();
-    }, [props.reloadTeams]);
-
-    if(teams.length === 0) {
-        return (
-            <div className="teamList">
-                <h3 className="emptyTeam">No teams created</h3>
-            </div>
-        );
-    }
-
-    const teamNodes = teams.map(team => {
-        return (
-            <div key={team._id} className="team">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-                <h3 className='teamName'>Name: {team.name}</h3>
-                <div className="teamRoles">
-                    <span className="champRole">Top: {team.top}</span>
-                    <span className="champRole">Jungle: {team.jungle}</span>
-                    <span className="champRole">Mid: {team.mid}</span>
-                    <span className="champRole">Bot: {team.bot}</span>
-                    <span className="champRole">Support: {team.support}</span>
-                </div>
-                <form id="teamDeleteForm"
-                    onSubmit={(e) => handleDeleteChamp(e, props.triggerReload)}
-                    name="teamDeleteForm"
-                    action="/deleteTeam"
-                    method="DELETE"
-                    className="teamDeleteForm"
-                >
-                    <input className="deleteTeamSubmit" type="submit" value="Delete Team"/>
-                </form>
-            </div>
-        );
-    });
-
-    return (
-        <div className="teamList">
-            {teamNodes}
-        </div>
-    );
-};
-
 const ChampSelectList = (props) => {
     return (
         <div id='champSelectDiv'>
@@ -112,7 +52,6 @@ const ChampSelectList = (props) => {
 }
 
 const TeamCreationForm = (props) => {
-    let reloadChamps = props.reloadChamps;
     const [champs, setChamps] = useState(props.champs);
 
     useEffect(() => {
@@ -153,22 +92,70 @@ const TeamCreationForm = (props) => {
     );
 };
 
+const TeamCompViewerNavigation = (props) => {
+    return (
+        <form id="teamCompViewerNav"
+            //onSubmit={(e) => handleDeleteChamp(e, props.triggerReload)}
+            name="teamCompViewerNav"
+            action="/accountPage"
+            method="GET"
+            className="teamCompViewerNav"
+        >
+            <input className="teamCompViewerSubmit" type="submit" value="View Teams"/>
+        </form>
+    );
+}
+
 const App = () => {
     const [reloadTeams, setReloadTeams] = useState(false);
     const [reloadChamps, setReloadChamps] = useState(false);
+    const [premium, setPremium] = useState(false);
+    
+    useEffect(() => {
+        const checkPremium = async () => {
+            const response = await fetch("/checkPremium");
+            const data = await response.json();
+            setPremium(data.premium);
+        };
+        checkPremium();
+    });
 
-    return (
-        <div>
-            <div id="makeTeam">
-                <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => { 
-                    setReloadChamps(!reloadChamps);
-                    setReloadTeams(!reloadTeams);}}/>
+    console.log(premium);
+
+    if (premium === true)
+    {
+        console.log("prem");
+        return (
+            <div>
+                <div id='divNav'>
+                    <TeamCompViewerNavigation/>
+                </div>
+                <div id="makeTeam">
+                    <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => { 
+                        setReloadChamps(!reloadChamps);
+                        setReloadTeams(!reloadTeams);}}/>
+                </div>
             </div>
-            <div id="teams">
-                <TeamsList teams={[]} reloadTeams={reloadTeams} triggerReload={() => setReloadTeams(!reloadTeams)}/>
+        );
+    }
+    else
+    {
+        console.log("no prem");
+        return (
+            <div>
+                <div className='adSpace'>adadadadadadada</div>
+                <div id='divNav'>
+                    <TeamCompViewerNavigation/>
+                </div>
+                <div id="makeTeam">
+                    <TeamCreationForm champs={[]} reloadChamps={reloadChamps} triggerReload={() => { 
+                        setReloadChamps(!reloadChamps);
+                        setReloadTeams(!reloadTeams);}}/>
+                </div>
+                <div className='adSpace'>adadadadadada</div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 const init = () => {
