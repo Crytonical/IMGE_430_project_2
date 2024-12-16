@@ -7,12 +7,12 @@ const teamMakerPage = async (req, res) => {
 };
 
 const makeTeam = async (req, res) => {
-  if (!req.body.name || 
-    !req.body.top || 
-    !req.body.jungle || 
-    !req.body.mid || 
-    !req.body.bot || 
-    !req.body.support) {
+  if (!req.body.name
+    || !req.body.top
+    || !req.body.jungle
+    || !req.body.mid
+    || !req.body.bot
+    || !req.body.support) {
     console.log('make team error');
     return res.status(400).json({ error: 'All fields are required!' });
   }
@@ -24,7 +24,7 @@ const makeTeam = async (req, res) => {
     mid: req.body.mid,
     bot: req.body.bot,
     support: req.body.support,
-    owner: req.session.account._id
+    owner: req.session.account._id,
   };
 
   try {

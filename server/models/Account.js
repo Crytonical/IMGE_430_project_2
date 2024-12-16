@@ -24,7 +24,7 @@ const AccountSchema = new mongoose.Schema({
   premium: {
     type: Boolean,
     required: true,
-  }
+  },
 });
 
 AccountSchema.statics.toAPI = (doc) => ({
@@ -64,7 +64,7 @@ AccountSchema.statics.updatePremium = async (username, newPremiumStatus, callbac
   } catch (err) {
     return callback(err);
   }
-}
+};
 
 AccountModel = mongoose.model('Account', AccountSchema);
 module.exports = AccountModel;
